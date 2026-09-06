@@ -1,0 +1,385 @@
+@import "tailwindcss";
+
+:root {
+  --maroon: #572629;
+  --maroon-deep: #3a1a1c;
+  --gold: #c9a15a;
+  --gold-hover: #b38f4c;
+  --ivory: #f8f3ea;
+  --ink: #2a2020;
+  --taupe: #a88f76;
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-12: 96px;
+
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* shadcn/ui semantic tokens, mapped onto the VEDANTHÈ brand palette above
+     so components pulled from shadcn (bg-accent, text-popover-foreground, etc.)
+     render in-brand instead of the library's default neutral gray. */
+  --background: var(--ivory);
+  --foreground: var(--ink);
+  --popover: var(--ivory);
+  --popover-foreground: var(--ink);
+  --surface: var(--ivory);
+  --accent: rgb(201 161 90 / 0.14);
+  --accent-foreground: var(--maroon);
+  --border: rgb(87 38 41 / 0.12);
+  --ring: var(--gold);
+  --muted: rgb(168 143 118 / 0.14);
+  --muted-foreground: var(--taupe);
+  --card: #fff;
+  --card-foreground: var(--ink);
+  --primary: var(--gold);
+  --secondary: var(--maroon);
+
+  /* same tokens, tuned for use on the maroon topbar/hero instead of ivory */
+  --accent-on-dark: rgb(201 161 90 / 0.18);
+  --accent-foreground-on-dark: var(--gold);
+  --border-on-dark: rgb(201 161 90 / 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+
+  /* brand colors as first-class Tailwind utilities: text-gold, bg-maroon, etc. */
+  --color-maroon: var(--maroon);
+  --color-maroon-deep: var(--maroon-deep);
+  --color-gold: var(--gold);
+  --color-gold-hover: var(--gold-hover);
+  --color-ivory: var(--ivory);
+  --color-ink: var(--ink);
+  --color-taupe: var(--taupe);
+
+  /* hover-highlight tint tuned for use on the maroon topbar */
+  --color-accent-on-dark: var(--accent-on-dark);
+  --color-border-on-dark: var(--border-on-dark);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Marquee primitive (src/components/ui/marquee-01-utils/marquee.tsx) */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration, 40s) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration, 40s) linear infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+#root {
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  line-height: 1.2;
+  margin: 0;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: clamp(32px, 6vw, 56px);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+h2 {
+  font-size: clamp(24px, 4vw, 36px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+h3 {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+  font-size: clamp(16px, 1vw, 17px);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: clamp(12px, 1vw, 13px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+section .eyebrow--on-dark {
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+button {
+  font-family: var(--sans);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 16px 32px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.btn--primary {
+  background: var(--gold);
+  color: var(--maroon);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background: var(--gold-hover);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+  background: var(--gold);
+  color: var(--maroon);
+}
+
+.link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+
+.link--on-maroon {
+  color: var(--gold);
+}
+
+.link--on-ivory {
+  color: var(--maroon);
+}
+
+/* --- Our Collections --- */
+.collections {
+  padding: var(--space-8) var(--space-2);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .collections {
+    padding: var(--space-12) var(--space-4);
+  }
+}
+
+.collections__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .collections__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+}
+
+.collection-card {
+  position: relative;
+  border-radius: 12px;
+  padding: var(--space-3);
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(42, 32, 32, 0.12);
+  transition: box-shadow 200ms ease;
+}
+
+.collection-card:hover {
+  box-shadow: 0 16px 32px rgba(42, 32, 32, 0.2);
+}
+
+.collection-card__num {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--gold);
+  font-size: 13px;
+  font-family: var(--serif);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collection-card__image {
+  margin: 0 auto var(--space-2);
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.collection-card__photo {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+
+.collection-card__audience {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 4px;
+}
+
+.collection-card h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.collection-card__desc {
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 32ch;
+  margin: 0 auto;
+}
+
+.collection-card--maroon {
+  background: linear-gradient(160deg, var(--maroon), var(--maroon-deep));
+  color: var(--ivory);
+}
+
+.collection-card--maroon h3 {
+  color: var(--gold);
+}
+
+.collection-card--maroon .collection-card__audience,
+.collection-card--maroon .collection-card__desc {
+  color: rgba(248, 243, 234, 0.75);
+}
+
+.collection-card--black {
+  background: linear-gradient(160deg, #282723, #141414);
+  color: var(--ivory);
+}
+
+.collection-card--black h3 {
+  color: var(--gold);
+}
+
+.collection-card--black .collection-card__audience,
+.collection-card--black .collection-card__desc {
+  color: rgba(248, 243, 234, 0.7);
+}
+
+.collection-card--ivory {
+  background: linear-gradient(160deg, #f3ead9, #e7dfc8);
+  color: var(--ink);
+}
+
+.collection-card--ivory h3 {
+  color: var(--ink);
+}
+
+.collection-card--ivory .collection-card__num {
+  background: rgba(42, 32, 32, 0.08);
+  color: var(--maroon);
+}
+
+.collection-card--ivory .collection-card__audience,
+.collection-card--ivory .collection-card__desc {
+  color: var(--taupe);
+}
