@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
   MotionNavigationMenu,
   MotionNavigationMenuContent,
@@ -17,32 +18,19 @@ const SHOP_COLLECTIONS = [
     name: 'Sala da Pranzo',
     desc: 'The Dining Room Edit — wine, old leather',
     image: '/products/essentials-for-her.png',
-    href: '#collections',
+    to: '/collections/woman',
   },
   {
     name: 'La Biblioteca',
     desc: 'The Library Edit — ink, smoke',
     image: '/products/essentials-for-him.png',
-    href: '#collections',
+    to: '/collections/man',
   },
   {
     name: 'La Serra',
     desc: 'The Conservatory Edit — linen, marble',
     image: '/products/essentials-for-all.png',
-    href: '#collections',
-  },
-]
-
-const ABOUT_LINKS = [
-  {
-    title: 'Our Story',
-    desc: 'Cortini Ipuvorlia — an old atelier worn beside villa gardens.',
-    href: '#footer',
-  },
-  {
-    title: 'Journal',
-    desc: 'Notes from the villa, sent occasionally.',
-    href: '#footer',
+    to: '/collections/unisex',
   },
 ]
 
@@ -53,31 +41,15 @@ function SiteNavigation() {
     >
       <MotionNavigationMenuList highlightClassName={highlightOnDark}>
         <MotionNavigationMenuItem>
-          <MotionNavigationMenuLink href="#top" className={triggerClassName}>
+          <MotionNavigationMenuLink as={Link} to="/" className={triggerClassName}>
             Home
           </MotionNavigationMenuLink>
         </MotionNavigationMenuItem>
 
-        <MotionNavigationMenuItem value="about">
-          <MotionNavigationMenuTrigger className={triggerClassName}>
+        <MotionNavigationMenuItem>
+          <MotionNavigationMenuLink as={Link} to="/about" className={triggerClassName}>
             About
-          </MotionNavigationMenuTrigger>
-          <MotionNavigationMenuContent highlightClassName="bg-accent rounded-sm">
-            <div className="w-64 space-y-1">
-              {ABOUT_LINKS.map((item) => (
-                <MotionNavigationMenuLink
-                  key={item.title}
-                  href={item.href}
-                  className="text-ink hover:text-maroon focus:text-maroon"
-                >
-                  <span className="font-serif text-sm font-medium">
-                    {item.title}
-                  </span>
-                  <span className="text-taupe text-xs">{item.desc}</span>
-                </MotionNavigationMenuLink>
-              ))}
-            </div>
-          </MotionNavigationMenuContent>
+          </MotionNavigationMenuLink>
         </MotionNavigationMenuItem>
 
         <MotionNavigationMenuItem value="shop">
@@ -86,8 +58,9 @@ function SiteNavigation() {
           </MotionNavigationMenuTrigger>
           <MotionNavigationMenuContent highlightClassName="bg-accent rounded-sm">
             <div className="grid w-[440px] grid-cols-[1fr_1.2fr] gap-2">
-              <a
-                href="#collection"
+              <MotionNavigationMenuLink
+                as={Link}
+                to="/shop"
                 className="bg-ivory flex min-h-40 flex-col justify-between rounded-md p-3"
               >
                 <img
@@ -97,18 +70,19 @@ function SiteNavigation() {
                 />
                 <span className="space-y-0.5">
                   <span className="text-ink block text-sm font-medium">
-                    Vedanthè Vandelle
+                    Shop All
                   </span>
                   <span className="text-taupe block text-xs">
-                    Our most-loved bundle
+                    Every scent, one villa
                   </span>
                 </span>
-              </a>
+              </MotionNavigationMenuLink>
               <div className="grid grid-cols-1 gap-0.5">
                 {SHOP_COLLECTIONS.map((item) => (
                   <MotionNavigationMenuLink
                     key={item.name}
-                    href={item.href}
+                    as={Link}
+                    to={item.to}
                     className="text-ink hover:text-maroon focus:text-maroon flex-row items-center gap-3"
                   >
                     <img
@@ -131,7 +105,7 @@ function SiteNavigation() {
         </MotionNavigationMenuItem>
 
         <MotionNavigationMenuItem>
-          <MotionNavigationMenuLink href="#footer" className={triggerClassName}>
+          <MotionNavigationMenuLink as={Link} to="/contact" className={triggerClassName}>
             Contact
           </MotionNavigationMenuLink>
         </MotionNavigationMenuItem>

@@ -324,7 +324,7 @@ export function CinematicFooter() {
             </h2>
 
             <div ref={linksRef} className="flex flex-col items-center gap-5 w-full">
-              <div className="flex flex-wrap justify-center gap-4 w-full">
+              <div className="flex flex-wrap justify-center gap-4 w-full [perspective:1000px]">
                 <MagneticButton
                   as="a"
                   href="#collections"
@@ -342,7 +342,7 @@ export function CinematicFooter() {
                 </MagneticButton>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full">
+              <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full [perspective:1000px]">
                 <MagneticButton as="a" href="#top" className="footer-glass-pill px-6 py-3 rounded-full text-muted-foreground font-medium text-xs md:text-sm hover:text-foreground">
                   Our Story
                 </MagneticButton>
@@ -376,12 +376,12 @@ export function CinematicFooter() {
           </div>
 
           {/* Bottom bar / credits */}
-          <div className="relative z-20 w-full pb-8 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="relative z-20 w-full pb-8 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4 [perspective:1000px]">
             <div className="text-muted-foreground text-[10px] md:text-xs font-semibold tracking-widest uppercase order-3 md:order-1">
               © {new Date().getFullYear()} VEDANTHÈ. All rights reserved.
             </div>
 
-            <div className="flex items-center gap-2 order-1 md:order-2">
+            <div className="flex items-center gap-2 order-1 md:order-2 [perspective:1000px]">
               {SOCIAL_LINKS.map((social) => (
                 <MagneticButton
                   key={social.name}
