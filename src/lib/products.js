@@ -4,6 +4,39 @@ const PLACEHOLDER_IMAGE = '/products/bold-confession-bottle.jpg'
 
 export const AUDIENCES = ['Woman', 'Man', 'Unisex']
 
+export const SORT_OPTIONS = [
+  { value: 'featured', label: 'Featured' },
+  { value: 'name-asc', label: 'Name: A to Z' },
+  { value: 'name-desc', label: 'Name: Z to A' },
+  { value: 'price-asc', label: 'Price: Low to High' },
+  { value: 'price-desc', label: 'Price: High to Low' },
+]
+
+export function sortProducts(products, sortBy) {
+  if (sortBy === 'featured' || !sortBy) return products
+
+  const sorted = [...products]
+  switch (sortBy) {
+    case 'name-asc':
+      return sorted.sort((a, b) => a.name.localeCompare(b.name))
+    case 'name-desc':
+      return sorted.sort((a, b) => b.name.localeCompare(a.name))
+    case 'price-asc':
+      return sorted.sort((a, b) => a.price - b.price)
+    case 'price-desc':
+      return sorted.sort((a, b) => b.price - a.price)
+    default:
+      return sorted
+  }
+}
+
+// VEDANTHÈ's own in-house line — not a designer dupe, so these carry a
+// collection credit instead of an "inspired by" line.
+export const VILLA_SULLOMBRA = {
+  name: "Villa Sull'Ombra",
+  tagline: 'The Soothing Aura Collection',
+}
+
 // inspiredByPrice values are approximate CAD retail prices for the full-size
 // designer original, researched from official brand sites / major retailers.
 // Fragrance pricing varies a lot by size, region, and promotions, so treat
@@ -88,6 +121,15 @@ export const PRODUCTS = [
     price: 49,
     inspiredBy: 'Flora Gorgeous Gardenia (Gucci)',
     inspiredByPrice: 170,
+    image: PLACEHOLDER_IMAGE,
+  },
+  {
+    id: 'sweet-tooth',
+    name: 'Sweet Tooth',
+    audience: 'Woman',
+    note: 'Vanilla, Caramel',
+    price: 49,
+    collection: VILLA_SULLOMBRA,
     image: PLACEHOLDER_IMAGE,
   },
 
@@ -260,8 +302,7 @@ export const PRODUCTS = [
     audience: 'Unisex',
     note: 'Warm Amber',
     price: 49,
-    inspiredBy: 'Khamrah (Lattafa)',
-    inspiredByPrice: 69,
+    collection: VILLA_SULLOMBRA,
     image: PLACEHOLDER_IMAGE,
   },
   {
@@ -270,8 +311,7 @@ export const PRODUCTS = [
     audience: 'Man',
     note: 'Fresh Spicy',
     price: 49,
-    inspiredBy: 'Hawas (Rasasi)',
-    inspiredByPrice: 60,
+    collection: VILLA_SULLOMBRA,
     image: PLACEHOLDER_IMAGE,
   },
 ]

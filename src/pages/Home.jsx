@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import Leaf from '../components/Leaf'
-import SakuraEditorialPoster from '../components/ui/sakura-editorial-poster'
+import { ParallaxComponent } from '../components/ui/parallax-scrolling'
 import { Features } from '../components/ui/features-8'
 import TestimonialMarquee from '../components/ui/marquee-01'
 import ComparisonCTA from '../components/ui/8bit-cta1'
@@ -75,6 +75,13 @@ const COLLECTIONS_DATA = [
     image: '/products/essentials-for-all.png',
     theme: 'ivory',
   },
+  {
+    audience: 'In-House',
+    name: "Villa Sull'Ombra",
+    description: 'The atelier before dawn — amber, vanilla, and the first quiet hour.',
+    image: '/products/bold-confession-bottle.jpg',
+    theme: 'gold',
+  },
 ]
 
 const GALLERY_IMAGES = [
@@ -117,23 +124,7 @@ function Home() {
   return (
     <>
       <div id="top">
-        <SakuraEditorialPoster
-          title="VEDANTHÈ"
-          keywords={[
-            { label: 'Hand-Poured' },
-            { label: 'Tuscany' },
-            { label: 'Timeless' },
-          ]}
-          headline="The Scent of Who You&rsquo;ve Become"
-          body="The Vedanthè Vandelle bundle — 30ml perfume oil paired with a 5ml rollon for on-the-go wear, hand-blended and made to last close to the skin."
-          subheadline="Worn close. Remembered longer."
-          footerLeft="VEDANTHÈ"
-          footerCenter="The Villa Collection"
-          footerRight={String(new Date().getFullYear())}
-          socialHandle="@vedanthe"
-          sceneSrc="/hero/villa-facade-night.png"
-          sceneAlt="The villa facade at night — maroon walls, gold-trimmed arched windows, and cypress trees"
-        />
+        <ParallaxComponent />
 
         <div className="marquee">
           <div className="marquee__track">
@@ -159,7 +150,7 @@ function Home() {
         >
           <motion.h2 variants={fadeUp}>Our Collections</motion.h2>
           <motion.p className="section-head__body" variants={fadeUp}>
-            Three rooms of the villa, each with its own hour and its own scent.
+            Four rooms of the villa, each with its own hour and its own scent.
           </motion.p>
         </motion.div>
 
@@ -418,11 +409,14 @@ function Home() {
           transition={{ duration: 0.5 }}
         >
           <div className="promo__content">
-            <h2>Get 20% Off Your First Order</h2>
+            <h2>Get 10% Off Your First Order</h2>
             <h3>Vedanthè Vandelle — The Villa Collection</h3>
             <p>
               A limited invitation into the villa — one bottle, one letter,
               one evening to decide who you become.
+            </p>
+            <p className="promo__perk">
+              Every order includes a free 5ml rollon gift, no code needed.
             </p>
             <a href="#collections" className="link link--on-maroon promo__link">
               Shop Now

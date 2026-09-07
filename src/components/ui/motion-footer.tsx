@@ -352,16 +352,23 @@ export function CinematicFooter() {
                 <MagneticButton as="a" href="#top" className="footer-glass-pill px-6 py-3 rounded-full text-muted-foreground font-medium text-xs md:text-sm hover:text-foreground">
                   FAQ
                 </MagneticButton>
+                <MagneticButton as="a" href="/contact" className="footer-glass-pill px-6 py-3 rounded-full text-primary font-medium text-xs md:text-sm hover:text-foreground">
+                  Give $10, Get $10
+                </MagneticButton>
               </div>
+
+              <p className="text-muted-foreground text-[10px] md:text-xs font-semibold tracking-widest uppercase mt-2">
+                Sign up for 10% off your first order
+              </p>
 
               <form
                 onSubmit={(e) => e.preventDefault()}
-                className="footer-glass-pill flex items-center gap-1 rounded-full p-1.5 mt-2 w-full max-w-sm"
+                className="footer-glass-pill flex items-center gap-1 rounded-full p-1.5 w-full max-w-sm"
               >
                 <input
                   type="email"
                   required
-                  placeholder="Letters from the villa, sent occasionally"
+                  placeholder="Your email"
                   aria-label="Email address"
                   className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-xs md:text-sm text-foreground placeholder:text-muted-foreground outline-none"
                 />

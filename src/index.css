@@ -117,6 +117,23 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Lenis (used by the parallax hero) drives smooth scrolling with real
+   scroll-position math while it's mounted; CSS scroll-behavior would fight
+   it (two different smoothing systems trying to own the same scroll), so
+   Lenis's own recommended reset takes over whenever it's active. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   background: var(--ivory);
@@ -260,10 +277,16 @@ img {
   margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .collections__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3);
+  }
+}
+
+@media (min-width: 1024px) {
+  .collections__grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -382,4 +405,23 @@ img {
 .collection-card--ivory .collection-card__audience,
 .collection-card--ivory .collection-card__desc {
   color: var(--taupe);
+}
+
+.collection-card--gold {
+  background: linear-gradient(160deg, var(--gold), var(--gold-hover));
+  color: var(--maroon);
+}
+
+.collection-card--gold h3 {
+  color: var(--maroon);
+}
+
+.collection-card--gold .collection-card__num {
+  background: rgba(87, 38, 41, 0.12);
+  color: var(--maroon);
+}
+
+.collection-card--gold .collection-card__audience,
+.collection-card--gold .collection-card__desc {
+  color: rgba(87, 38, 41, 0.75);
 }

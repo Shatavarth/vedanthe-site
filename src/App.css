@@ -82,6 +82,34 @@
   padding: 12px 24px 16px;
 }
 
+.topbar__tagline a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 161, 90, 0.4);
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.topbar__tagline a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.topbar__tagline-text {
+  display: inline-block;
+  animation: topbar-tagline-fade 400ms ease;
+}
+
+@keyframes topbar-tagline-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (min-width: 768px) {
   .topbar__row {
     flex-wrap: nowrap;
@@ -94,7 +122,284 @@
   }
 }
 
-/* Hero */
+/* Search overlay */
+
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.search-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: none;
+  background: rgba(42, 32, 32, 0.55);
+  cursor: pointer;
+  padding: 0;
+}
+
+.search-overlay__panel {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--ivory);
+  box-shadow: 0 24px 60px rgba(42, 32, 32, 0.3);
+  padding: 24px;
+  max-height: min(70vh, 640px);
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .search-overlay__panel {
+    margin-top: 96px;
+    border-radius: 12px;
+    padding: 32px;
+  }
+}
+
+.search-overlay__field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(42, 32, 32, 0.15);
+  padding-bottom: 16px;
+}
+
+.search-overlay__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--taupe);
+  flex-shrink: 0;
+}
+
+.search-overlay__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink);
+  outline: none;
+}
+
+.search-overlay__input::placeholder {
+  color: var(--taupe);
+}
+
+.search-overlay__close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--taupe);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.search-overlay__close:hover {
+  background: rgba(42, 32, 32, 0.06);
+  color: var(--ink);
+}
+
+.search-overlay__results {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.search-overlay__result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 200ms ease;
+}
+
+.search-overlay__result:hover {
+  background: var(--accent);
+}
+
+.search-overlay__result-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.search-overlay__result-name {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.search-overlay__result-meta {
+  font-size: 12px;
+  color: var(--taupe);
+}
+
+.search-overlay__result-price {
+  flex-shrink: 0;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--maroon);
+}
+
+.search-overlay__empty {
+  padding: 24px 8px 8px;
+  color: var(--taupe);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Parallax hero */
+
+.parallax {
+  position: relative;
+  background: var(--maroon-deep);
+}
+
+.parallax__visuals {
+  /* No overflow:hidden here — an overflow value other than visible on an
+     ancestor makes browsers treat IT as the sticky child's scroll context;
+     since this 200vh block never scrolls internally (the real page does),
+     that broke position:sticky below entirely. Clipping happens on the
+     inner sticky frame (.parallax__layers) instead. */
+  position: relative;
+  height: 200vh;
+}
+
+.parallax__black-line-overflow {
+  position: absolute;
+  inset: -2px;
+  background: var(--maroon-deep);
+  z-index: 0;
+}
+
+.parallax__layers {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.parallax__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.parallax__layer--img {
+  object-fit: cover;
+}
+
+.parallax__layer--bg {
+  z-index: 1;
+  filter: brightness(0.55) saturate(1.05);
+}
+
+.parallax__layer--texture {
+  z-index: 2;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  filter: sepia(0.2);
+}
+
+.parallax__layer--title {
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  pointer-events: none;
+  padding: 0 24px;
+}
+
+.parallax__eyebrow {
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: clamp(11px, 1.4vw, 14px);
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+.parallax__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: clamp(48px, 11vw, 128px);
+  color: var(--gold);
+  margin: 0;
+  line-height: 1;
+  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.parallax__subtitle {
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: clamp(12px, 1.6vw, 15px);
+  color: rgba(248, 243, 234, 0.85);
+}
+
+.parallax__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40vh;
+  background: linear-gradient(to bottom, transparent, var(--ivory));
+  z-index: 5;
+  pointer-events: none;
+}
+
+.parallax__content {
+  position: relative;
+  background: var(--ivory);
+  padding: 64px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .parallax__content {
+    padding: 96px 64px 120px;
+  }
+}
+
+.parallax__icon {
+  width: 48px;
+  height: auto;
+}
+
+.parallax__story {
+  max-width: 480px;
+  color: var(--ink);
+  opacity: 0.85;
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.7;
+}
 
 .marquee {
   width: min(1100px, 92%);
@@ -639,6 +944,14 @@
   margin: 0 auto 16px;
 }
 
+.promo__content p.promo__perk {
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: -8px;
+}
+
 .promo__link {
   font-size: 13px;
   letter-spacing: 0.08em;
@@ -998,6 +1311,32 @@
   color: rgba(248, 243, 234, 0.8);
 }
 
+/* Promo strip (bundle + gift-with-order, shown on Shop/Collection/Product) */
+.promo-strip {
+  background: var(--maroon-deep);
+  color: rgba(248, 243, 234, 0.85);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 24px;
+  font-family: var(--serif);
+  font-size: clamp(11px, 1.6vw, 13px);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.promo-strip__item strong {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.promo-strip__divider {
+  opacity: 0.6;
+  font-size: 11px;
+}
+
 /* --- Shop / Collection grid --- */
 .shop-page {
   background: var(--ivory);
@@ -1114,8 +1453,87 @@
   color: var(--taupe);
 }
 
-.shop-page__filters {
-  margin-top: 8px;
+/* Shop toolbar (filter + sort, sits directly above the product grid) */
+
+.shop-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(42, 32, 32, 0.1);
+}
+
+.shop-toolbar__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.shop-toolbar__label {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+/* Pills default to gold-on-maroon; this toolbar sits on ivory, so flip to
+   maroon-on-ivory (an active pill becomes a solid maroon chip with gold
+   text) to keep the contrast rule from the brand skill. */
+.shop-toolbar .explore__pills {
+  justify-content: flex-start;
+  max-width: none;
+}
+
+.shop-toolbar .pill {
+  color: var(--maroon);
+  border-color: rgba(87, 38, 41, 0.35);
+}
+
+.shop-toolbar .pill:hover {
+  border-color: var(--maroon);
+}
+
+.shop-toolbar .pill--active {
+  background: var(--maroon);
+  color: var(--gold);
+  border-color: var(--maroon);
+}
+
+.sort-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort-dropdown__label {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+
+.sort-dropdown__select {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid rgba(42, 32, 32, 0.15);
+  border-radius: 4px;
+  padding: 8px 12px;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.sort-dropdown__select:focus {
+  outline: none;
+  border-color: var(--maroon);
 }
 
 /* --- Product detail --- */
@@ -1205,6 +1623,36 @@
 .product-detail__back {
   margin-top: 12px;
   font-size: 13px;
+}
+
+.product-detail__offers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(87, 38, 41, 0.15);
+  border-radius: 4px;
+  background: rgba(201, 161, 90, 0.08);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.product-detail__offers p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink);
+  opacity: 0.85;
+}
+
+.product-detail__offers strong {
+  color: var(--maroon);
+  opacity: 1;
+}
+
+.product-detail__offers a {
+  color: var(--maroon);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* --- About page --- */

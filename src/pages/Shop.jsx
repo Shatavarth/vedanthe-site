@@ -1,19 +1,13 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AUDIENCES, PRODUCTS } from '../lib/products'
-
-const FILTERS = ['All', ...AUDIENCES]
+import PromoStrip from '../components/PromoStrip'
+import ShopFilters from '../components/ShopFilters'
+import SortDropdown from '../components/SortDropdown'
+import { PRODUCTS, sortProducts } from '../lib/products'
 
 function Shop() {
-  const [activeFilter, setActiveFilter] = useState('All')
-
-  const products = useMemo(
-    () =>
-      activeFilter === 'All'
-        ? PRODUCTS
-        : PRODUCTS.filter((p) => p.audience === activeFilter),
-    [activeFilter],
-  )
+  const [sortBy, setSortBy] = useState('featured')
+  const products = useMemo(() => sortProducts(PRODUCTS, sortBy), [sortBy])
 
   return (
     <>
@@ -21,25 +15,21 @@ function Shop() {
         <span className="eyebrow eyebrow--on-dark">The Villa Collection</span>
         <h1>Shop All</h1>
         <p className="page-header__body">
-          Twenty-six scents, one villa. Hand-poured perfume oils, alcohol-free and made to last.
+          Twenty-seven scents, one villa. Hand-poured perfume oils, alcohol-free and made to last.
         </p>
-
-        <div className="explore__pills shop-page__filters" role="group" aria-label="Filter by collection">
-          {FILTERS.map((filter) => (
-            <button
-              key={filter}
-              type="button"
-              onClick={() => setActiveFilter(filter)}
-              aria-pressed={activeFilter === filter}
-              className={`pill${activeFilter === filter ? ' pill--active' : ''}`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
       </header>
 
+      <PromoStrip />
+
       <section className="shop-page">
+        <div className="shop-toolbar">
+          <div className="shop-toolbar__filters">
+            <span className="shop-toolbar__label">Filter</span>
+            <ShopFilters />
+          </div>
+          <SortDropdown value={sortBy} onChange={setSortBy} />
+        </div>
+
         <div className="shop-grid">
           {products.map((product) => (
             <Link key={product.id} to={`/product/${product.id}`} className="shop-card">
@@ -51,8 +41,16 @@ function Shop() {
               <p className="shop-card__notes">{product.note}</p>
               <span className="shop-card__price">${product.price} CAD</span>
               <span className="shop-card__inspired">
-                Inspired by {product.inspiredBy}
-                {product.inspiredByPrice ? ` · $${product.inspiredByPrice} CAD` : ''}
+                {product.collection ? (
+                  <>
+                    {product.collection.name} — {product.collection.tagline}
+                  </>
+                ) : (
+                  <>
+                    Inspired by {product.inspiredBy}
+                    {product.inspiredByPrice ? ` · $${product.inspiredByPrice} CAD` : ''}
+                  </>
+                )}
               </span>
             </Link>
           ))}

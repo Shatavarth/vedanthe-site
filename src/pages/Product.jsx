@@ -36,9 +36,27 @@ function Product() {
         </div>
 
         <p className="product-detail__inspired">
-          Inspired by {product.inspiredBy}
-          {product.inspiredByPrice ? ` · $${product.inspiredByPrice} CAD` : ''}
+          {product.collection ? (
+            <>
+              {product.collection.name} — {product.collection.tagline}
+            </>
+          ) : (
+            <>
+              Inspired by {product.inspiredBy}
+              {product.inspiredByPrice ? ` · $${product.inspiredByPrice} CAD` : ''}
+            </>
+          )}
         </p>
+
+        <div className="product-detail__offers">
+          <p>
+            <strong>Free 5ml rollon</strong> gift included with every order
+          </p>
+          <p>
+            <strong>Buy 3, save 12%</strong> — mix any 3 scents for $129 in{' '}
+            <Link to="/shop">the shop</Link>
+          </p>
+        </div>
 
         <button type="button" className="btn btn--primary">
           Add to Bag

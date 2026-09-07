@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import AnnouncementBar from './AnnouncementBar'
+import SearchOverlay from './SearchOverlay'
 import SiteNavigation from './site-navigation'
 import { CinematicFooter } from './ui/motion-footer'
 
 function Layout() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+
   return (
     <>
       <div className="topbar">
@@ -15,7 +20,13 @@ function Layout() {
             <SiteNavigation />
           </div>
           <div className="topbar__icons">
-            <button type="button" aria-label="Search" className="topbar__icon-btn">
+            <button
+              type="button"
+              aria-label="Search"
+              aria-expanded={isSearchOpen}
+              className="topbar__icon-btn"
+              onClick={() => setIsSearchOpen(true)}
+            >
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.5" />
                 <line x1="21" y1="21" x2="16.5" y2="16.5" stroke="currentColor" strokeWidth="1.5" />
@@ -35,8 +46,10 @@ function Layout() {
             </button>
           </div>
         </div>
-        <div className="topbar__tagline">The Villa Collection</div>
+        <AnnouncementBar />
       </div>
+
+      <SearchOverlay open={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
       <Outlet />
 
